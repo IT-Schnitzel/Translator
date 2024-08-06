@@ -20,6 +20,7 @@ public class AppConfig {
     public static final String YANDEX_TRANSLATOR_SERVICE = "yandex-translator-service";
 
 
+
     @Value("${yandex.api-key}")
     private final String apiKey;
 
