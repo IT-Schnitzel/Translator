@@ -1,14 +1,13 @@
-package ru.kreys.translator.controller;
+package ru.kreys.translator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.kreys.translator.controller.TranslationController;
 import ru.kreys.translator.dto.TranslationRequest;
 import ru.kreys.translator.service.TranslationService;
 
@@ -33,16 +32,14 @@ public class TranslationControllerTest {
 
     @Test
     public void translateTest() throws Exception {
-        TranslationRequest translationRequest = new TranslationRequest();
-        translationRequest.setText("hello");
-        translationRequest.setSourceLang("en");
-        translationRequest.setTargetLang("ru");
+        TranslationRequest translationRequest = new TranslationRequest("hello", "en", "ru");
+
 
         String translatedText = "привет";
         when(translationService.translate(any(TranslationRequest.class), anyString())).thenReturn(translatedText);
 
         mockMvc.perform(post("/api/v1/translate")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(objectMapper.writeValueAsString(translationRequest)))
                 .andExpect(status().isOk())
                 .andExpect(content().string(translatedText));
