@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: first-id
+      author: a.kreys
+      changes:
+        - createTable:
+            tableName: translation_requests
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: ip_address
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: input_text
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: translated_text
+                  type: TEXT
+                  constraints:
+                    nullable: false
